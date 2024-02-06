@@ -6,7 +6,7 @@ export const sendCookie = (user, res, message, statusCode = 200) => {
   res
     .status(201)
     .cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true, // disables cookies when deployed
       maxAge: 24 * 60 * 60 * 1000, // 1 day,
       sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none", // backend and frontend are on different domains
       secure: process.env.NODE_ENV === "Development" ? false : true, // true for production else  cookie will be blocked
