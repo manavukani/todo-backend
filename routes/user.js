@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.delete("/logout", logout);
+router.get("/logout", logout);
 
 // wherever we want to protect the route, we can use the isAuth middleware
 router.get("/me", isAuth, getMyProfile);
