@@ -21,7 +21,6 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true, // to allow cookies from frontend
-    Headers: true,
     exposedHeaders: "Set-Cookie",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: [

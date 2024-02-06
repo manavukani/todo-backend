@@ -17,14 +17,11 @@ export const login = async (req, res, next) => {
       // });
 
       // better way to handle error
-      return next(new ErrorHandler("User not found", 404));
+      return next(new ErrorHandler("User not found", 400));
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(404).json({
-        success: false,
-        message: "Invalid credentials",
-      });
+      return next(new ErrorHandler("Invalid Credentials", 400));
     }
 
     // using Util function to send cookie
@@ -69,14 +66,14 @@ export const getMyProfile = (req, res) => {
 export const logout = (req, res) => {
   res
     .status(200)
-    .cookie("token", null, {
-      // httpOnly: true,
+    .cookie("token", "", {
       expires: new Date(Date.now()),
       sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
       secure: process.env.NODE_ENV === "Development" ? false : true,
     })
     .json({
       success: true,
+      user: req.user,
       message: "Logged out",
     });
 };
